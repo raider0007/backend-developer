@@ -5,6 +5,10 @@ const abc = require('../introduction/intro')
 const loggerModule = require('../logger/logger.js')
 const formatterModule = require('../validator/formatter') 
 const helperModule = require('../util/helper')
+const dash =require('../logger/lodesh1')
+const newarr =require('../logger/lodesh2')
+const myarr =require('../logger/lodesh3')
+const newlist =require('../logger/lodesh4')
 const router = express.Router();
 
 router.get('/test-me', function (req, res) {
@@ -21,6 +25,7 @@ router.get('/test-me', function (req, res) {
     let result = _.first(weekdend, 2)
     console.log('Unserscore example resultr is ',result)
     res.send('My second ever api!')
+
 });
 
 
