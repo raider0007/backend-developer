@@ -18,19 +18,40 @@ const authenticate= function (req, res, next) {
         if (authorToModify != authorLoggedIn ) {
             return res.status(403).send({ msg: " sorry! you are not a authorized person" })
         } 
-        let blogTomodify=  req.params.blogId
+        // let blogTomodify=  req.params.blogId
         // let authorLoggedIn = decodeToken.authorId
-        if (blogTomodify != authorLoggedIn ) {
-            return res.status(403).send({ msg: " sorry! you are not a authorized person" })
-        } 
+        // if (blogTomodify != authorLoggedIn ) {
+        //     return res.status(403).send({ msg: " sorry! you are not a authorized person" })
+        // } 
          next()
      }   
-        
-    
     catch(error){
         res.status(500).send({status:false, msg: error.message})
     }
 }
+const authorized= function (req, res, next) {
+
+    try {let token = req.headers["x-api-key"];
+ 
+    
+     if (!token) return res.status(403).send({ status: false, msg: "token must be present" });
+ 
+         let decodeToken = jwt.verify(token, "project1-secrete-key")
+ 
+         if(!decodeToken) return res.status(403).send({ status: false, msg: "token is invalid" })
+     
+          let blogToModify = req.params.blogId
+         let authorLoggedIn = decodeToken.authorId
+         
+         if (blogToModify != authorLoggedIn ) {
+             return res.status(403).send({ msg: " sorry! you have not allowed" })
+         }
+         next()
+        }   
+       catch(error){
+           res.status(500).send({status:false, msg: error.message})
+       }
+   }
    
 
 
