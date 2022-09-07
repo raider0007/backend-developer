@@ -6,8 +6,9 @@ const mongoose = require("mongoose")
 
 const createBlog = async function(req, res){
 
-    try{let data = req.body
-    let { title, body, authorId, tags,category} = data
+    try{
+        let data = req.body
+        let { title, body, authorId, tags,category} = data
 
     if (!title) { return res.status(400).send({ status: false, msg: "please provide the title" })}
 
@@ -37,14 +38,13 @@ const getBlog = async function (req, res) {
         let data = req.query
         let { authorId, tags, category, subcategory } = data;
 
-        if (Object.keys(data) == 0)
+        if (Object.keys(data).length == 0)
          {
             let blogs = await BlogsModel.find({ $and: [ {isDeleted: false ,  isPublished: true}]})
             if (blogs.length==0) return res.status(404).send({ status: false, msg: "No documents are found" })
             return res.status(200).send(blogs);
          }
 
-        
         let Obj = {}
         let Objectid = mongoose.Types.ObjectId(authorId)
         if (!Objectid) {
@@ -116,9 +116,7 @@ const getBlog = async function (req, res) {
     try {
         let data = req.query
         let { authorId, tags, category, subcategory, isPublished} = data;
-
-        // if (Object.keys(data) == 0)
-         
+ 
         let Obj = {}
         let Objectid = mongoose.Types.ObjectId(authorId)
         if (!Objectid) {
@@ -142,7 +140,7 @@ const getBlog = async function (req, res) {
     }
 };
 
-module.exports.getBlog = getBlog;
+module.exports = {getBlog,putBlog}
 module.exports.putBlog = putBlog;
 module.exports.createBlog=createBlog
 module.exports.deletBlogs=deletBlogs
