@@ -39,12 +39,12 @@ const authorized = async function (req, res, next) {
 
         if (!decodeToken) return res.status(403).send({ status: false, msg: "token is invalid" })
 
-        req.authorLoggedIn = decodeToken.authorId
+        let authorLoggedIn = decodeToken.authorId
 
         let blogId = req.params.blogId
         let data = await BlogsModel.findById({ _id: blogId })
         if (data) {
-            if (data.authorId != req.authorLoggedIn) {
+            if (data.authorId != authorLoggedIn) {
 
                 return res.status(403).send({ msg: " sorry! you have not allowed" })
             }
@@ -61,5 +61,4 @@ const authorized = async function (req, res, next) {
     }
 }
 
-module.exports.authenticate = authenticate
-module.exports.authorized = authorized
+module.exports = {authenticate,authorized}
