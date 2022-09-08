@@ -10,8 +10,8 @@ Router.post("/authors", AuthorController.createAuthor)
 Router.post("/login", AuthorController.loginAuthor)
 Router.post("/blogs",commonMid.authenticate, BlogController.createBlog)
 Router.get("/blogs",commonMid.authenticate, BlogController.getBlog)
-Router.put("/blogs/:blogId",commonMid.authorized,BlogController.putBlog)
-Router.delete("/blogs/:blogId",commonMid.authorized, BlogController.deletBlogs)
-Router.delete("/blogs", commonMid.authenticate,BlogController.deletyqury)
+Router.put("/blogs/:blogId",commonMid.authorized, BlogController.updateBlog)
+Router.delete("/blogs/:blogId",commonMid.authorized, BlogController.deleteBlogs)
+Router.delete("/blogs",commonMid.authenticate, BlogController.deleteByquery)
 
 module.exports = Router
