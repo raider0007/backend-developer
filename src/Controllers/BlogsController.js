@@ -47,10 +47,10 @@ const getBlog = async function (req, res) {
         }
 
         let Obj = {}
-        let Objectid = mongoose.Types.ObjectId(authorId)
-        if (!Objectid) {
-            return res.status(400).send({ status: false, msg: "invalid authorid..! please provide valid authorId" })
-        }
+        // let Objectid = mongoose.Types.ObjectId(authorId)
+        // if (!Objectid) {
+        //     return res.status(400).send({ status: false, msg: "invalid authorid..! please provide valid authorId" })
+        // }
         if (authorId) { Obj.authorId = authorId }
 
         if (category) { Obj.category = category; }

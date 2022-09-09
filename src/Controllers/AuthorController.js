@@ -21,7 +21,7 @@ const createAuthor = async function (req, res) {
         if (emailVerify) { return res.status(400).send({ status: false, msg: "this email already exists please provide another email" }) }
         //------------password validation------------------------//
         // regex is applicable for any characters 
-        if (!(/^(?=.*[A-Za-z])(?=.*\d).{8,}$/).test(password)) { return res.status(400).send({ status: false, msg: "please provide the password" }) }
+        if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/).test(password)) { return res.status(400).send({ status: false, msg: "please provide the password" }) }
         let savedata = await AuthorModel.create(data)
 
         res.status(201).send({ status: true, msg: savedata })
