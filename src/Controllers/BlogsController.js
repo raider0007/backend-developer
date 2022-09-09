@@ -122,17 +122,17 @@ const deleteByquery = async function (req, res) {
             return res.status(403).send({ status: false, msg: "query must be present" })
         }
         let Obj = {}
-        let Objectid = mongoose.Types.ObjectId(authorId)
-        if (!Objectid) {
-            return res.status(400).send({ status: false, msg: "invalid authorid" })
-        }
+        // let Objectid = mongoose.Types.ObjectId(authorId)
+        // if (!Objectid) {
+        //     return res.status(400).send({ status: false, msg: "invalid authorid" })
+        // }
         if (authorId) { Obj.authorId = authorId }
         if (category) { Obj.category = category; }
         if (tags) { Obj.tags = tags; }
         if (subcategory) { Obj.subcategory = subcategory }
         if (isPublished) { Obj.isPublished = isPublished }
 
-        let blogDoc = await BlogsModel.find(Obj).findOneAndUpdate({ isDeleted: false },  { $set: { isDeleted: true, deletedAt: Date.now() } }, { new: true })
+        let blogDoc = await BlogsModel.find(Obj).findOneAndUpdate({ isDeleted: false},  { $set: { isDeleted: true, deletedAt: Date.now() } }, { new: true })
 
         if (!blogDoc) return res.status(404).send({ status: false, msg: "blogdoc are not found" })
 

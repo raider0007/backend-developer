@@ -22,7 +22,7 @@ const authenticate1 = function (req, res, next) {
 
 
         //---------------------------------------------AUTHENTICATION------------------------------//
-        const authorizationByquery = function (req, res, next) {
+        const authorizationByquery = async function (req, res, next) {
 
             try {
                 let token = req.headers["x-api-key"];
@@ -33,7 +33,15 @@ const authenticate1 = function (req, res, next) {
 
                 if (!decodeToken) return res.status(403).send({ status: false, msg: "token is invalid" })
 
-                let authorToModify = req.query.authorId
+               let Query = req.query
+
+               if(Object.keys(Query).length!=0){
+
+                const author = await BlogsModel.findOne({...Query})
+
+                if(!author) {return res.status(403).send({ status: false, msg: "document not found with given query" })}
+
+                let authorToModify = author.authorId
                 let authorLoggedIn = decodeToken.authorId
 
                 if (authorToModify != authorLoggedIn) {
@@ -42,6 +50,11 @@ const authenticate1 = function (req, res, next) {
                 }
 
                 next()
+               }
+               else{
+               return res.status(404).send({ msg: " plzzz add any query" })
+               }
+                 
             }
             catch (error) {
                 res.status(500).send({ status: false, msg: error.message })
