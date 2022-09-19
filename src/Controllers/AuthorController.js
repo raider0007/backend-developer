@@ -45,7 +45,7 @@ const createAuthor = async function (req, res) {
       return res.status(400).send({ status: false, msg: "password must be required !" })
     }
 
-    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@])[A-Za-z\d@]{8,}$/.test(password)) {
+    if (!/^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@])[A-Za-z\d@]{8,}$/.test(password)) {
       return res.status(400).send({ status: false, msg: "password contain at least 8 chracter like: aQ1@asd5" })
     }
 
@@ -73,12 +73,12 @@ const loginAuthor = async function (req, res) {
 
     //--------------------------------token creation-------------------------------------------------------//
     let payload = {
-      authorId: author._id,
+      authorId: author._id.toString(),
       group: "project1",
       organisation: "group46"
     }
 
-    let token = jwt.sign(payload, "project1-secrete-key")
+    let token = jwt.sign({payload}, "project1-secrete-key")
 
     res.setHeader("x-api-key", token)
 

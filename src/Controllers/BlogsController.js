@@ -1,4 +1,4 @@
-const BlogsModel = require("../Models/BlogsModel");
+ const BlogsModel = require("../Models/BlogsModel");
 const AuthorModel = require("../Models/AuthorModel");
 
 //==================================================createBlog==========================================//
@@ -99,7 +99,7 @@ const updateBlog = async function (req, res) {
     let Id = await BlogsModel.findById({ _id: blogId });
 
     if (!Id) {
-      return res.status(404).send({ status: false, msg: "blogid not exist" });
+      return res.status(404).send({ status: false, msg: "blogid does not exist" });
     }
 
     let dataBlog = await BlogsModel.findOneAndUpdate(
@@ -126,10 +126,10 @@ const deleteBlogs = async function (req, res) {
   try {
     let blogId = req.params.blogId;
 
-    let Id = await BlogsModel.findById(blogId);
-    if (!Id) {
-      return res.status(404).send({ status: false, message: "no such blogs exists" });
-    }
+    // let Id = await BlogsModel.findById(blogId);
+    // if (!Id) {
+    //   return res.status(404).send({ status: false, message: "no such blogs exists" });
+    // }
 
     let RemovedBlogs = await BlogsModel.findOneAndUpdate(
       { _id: blogId, isDeleted: false }, { $set: { isDeleted: true, deletedAt: Date.now() } }, { new: true }
