@@ -108,5 +108,76 @@ router.get("/films/:filmId", function(req, res){
        res.send("The film id doesn't match any movie")
 })
 
+let players =
+   [
+       {
+           "name": "manish",
+           "dob": "1/1/1995",
+           "gender": "male",
+           "city": "jalandhar",
+           "sports": [
+               "swimming"
+           ]
+       },
+       {
+           "name": "gopal",
+           "dob": "1/09/1995",
+           "gender": "male",
+           "city": "delhi",
+           "sports": [
+               "soccer"
+           ],
+       },
+       {
+           "name": "lokesh",
+           "dob": "1/1/1990",
+           "gender": "male",
+           "city": "mumbai",
+           "sports": [
+               "soccer"
+           ],
+       },
+   ]
+ 
+   router.post('/players',function (req, res) {
+    
+    let newPlayer = req.body
+    let newPlayersName = newPlayer.name
+    let check=players.find(x => x.name===newPlayersName )
+    if(check){
+        res.send({msg:"name already exit"})
+    }else{
+        players.push(newPlayer)
+        res.send(players)
+    }
+});
+router.get('/sol1',function(req,res){
+    let arr=[1,2,3,5,6,7,]
+    let n=arr.length+1
+    let Sumofnumber=[n*(arr[0]+arr[arr.length-1])/2]
+    let sumofArray=0
+    for(let i=0;i<arr.length;i++){
+        sumofArray=sumofArray+arr[i]
+    }
+  let missingNo=Sumofnumber-sumofArray
+    res.send({data:missingNo})
+})
+
+    
+
+router.get('/sol2',function(req,res){
+    let arr=[33,34,36,37,38]
+    n=arr.length+1
+    let firstNo=arr[0]
+    let lastNo=arr[4]
+    let missingNo=n*(firstNo+lastNo)/2
+    sum=0
+    for(let i=0;i<arr.length;i++){
+        sum=sum+arr[i]
+    }
+    let result=missingNo-sum
+    res.send({data:result})
+})
+
 module.exports = router;
 // adding this comment for no reason
