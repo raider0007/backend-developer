@@ -70,6 +70,40 @@ router.post("/test-post-4", function(req, res) {
     res.send(  { msg: arr , status: true }  )
 })
 
+let persons= [
+    {
+    name: "PK",
+    age: 10,
+    votingStatus: false
+ },
+ {
+    name: "SK",
+    age: 20,
+    votingStatus: false
+ },
+ {
+    name: "AA",
+    age: 70,
+    votingStatus: false
+ },
+ {
+    name: "SC",
+    age: 5,
+    votingStatus: false
+ },
+ {
+    name: "HO",
+    age: 40,
+    votingStatus: false
+ }
+ ]
+router.post('/person',function(req,res){
+    person=req.query
+    voter=person.age
+    validVoter=persons.filter(x => x.age>voter)
+    res.send({data:validVoter,status:true})
+
+}) 
 
 
 
