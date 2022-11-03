@@ -1,5 +1,19 @@
+const middleware = function (req, res, next) {
+    const FreeAppUser = req.headers.isfreeappuser;
 
-const mid1= function ( req, res, next) {
+    if (FreeAppUser === "true" || FreeAppUser === "false") {
+        const isFreeAppUser = FreeAppUser;
+        req.body["isFreeAppUser"] = isFreeAppUser;
+        next();
+    }
+    else {
+        return res.send({ msg: "The request is missing a mandatory header" })
+    }
+
+};
+
+module.exports = middleware;
+/*const mid1= function ( req, res, next) {
     req.falana= "hi there. i am adding something new to the req object"
     console.log("Hi I am a middleware named Mid1")
     next()
@@ -45,4 +59,4 @@ module.exports.mid2= mid2
 module.exports.mid3= mid3
 module.exports.mid4= mid4
 module.exports.myMiddleware = myMiddleware
-module.exports.myOtherMiddleware = myOtherMiddleware
+module.exports.myOtherMiddleware = myOtherMiddleware*/

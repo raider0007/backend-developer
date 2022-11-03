@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const router = express.Router();
 const UserController= require("../controllers/userController")
 const BookController= require("../controllers/bookController")
@@ -21,5 +21,19 @@ router.get("/dummy1", commonMW.myOtherMiddleware, UserController.dummyOne)
 router.get("/dummy2", commonMW.myOtherMiddleware, UserController.dummyTwo)
 
 router.get("/basicRoute", commonMW.mid1, commonMW.mid2, commonMW.mid3, commonMW.mid4, UserController.basicCode)
+
+module.exports = router;*/
+
+const express = require('express');
+const router = express.Router();
+
+const createUser = require("../controllers/userController");
+const createProduct = require("../controllers/productController");
+const createOrder = require("../controllers/orderController");
+const middleware = require('../middlewares/commonMiddlewares');
+
+router.post("/createUser", middleware, createUser);
+router.post("/createProduct", createProduct);
+router.post("/createOrder", middleware, createOrder);
 
 module.exports = router;
